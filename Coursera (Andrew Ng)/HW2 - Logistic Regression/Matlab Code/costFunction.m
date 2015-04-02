@@ -20,12 +20,27 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+%% NS: Calculate Cost Function J 
+J_tmp = 0;
 
+for i = 1 : m
+    hyp = sigmoid(X(i,:)*theta);
+    J_tmp = J_tmp + ( y(i)*log(hyp) + (1-y(i))*log(1-hyp) ); 
+end
 
+J = -(1/m) * J_tmp;
 
-
-
-
+%% NS: Calculate gradient of J
+for j = 1 : size(theta)
+    grad_tmp = 0;
+    
+    for i = 1 : m
+        hyp = sigmoid(X(i,:)*theta);
+        grad_tmp = grad_tmp + (hyp - y(i))*X(i,j); 
+    end
+    
+    grad(j) = (1/m) * grad_tmp;
+end
 
 % =============================================================
 
