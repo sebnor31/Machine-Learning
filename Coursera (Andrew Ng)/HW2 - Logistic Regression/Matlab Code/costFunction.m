@@ -28,7 +28,7 @@ for i = 1 : m
     J_tmp = J_tmp + ( y(i)*log(hyp) + (1-y(i))*log(1-hyp) ); 
 end
 
-J = -(1/m) * J_tmp;
+J = (-1.0/m) * J_tmp;
 
 %% NS: Calculate gradient of J
 for j = 1 : size(theta)

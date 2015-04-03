@@ -17,10 +17,48 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+%% NS: Calculate Cost Function J with Regularization
+J_tmp = 0;
+
+% Calculate regular cost sum
+for i = 1 : m
+    hyp = sigmoid(X(i,:)*theta);
+    J_tmp = J_tmp + ( y(i)*log(hyp) + (1-y(i))*log(1-hyp) ); 
+end
+
+J_tmp = (-1.0/m) * J_tmp;
+
+% Add regularization specific sum of lambdas
+% Note: Do not regularize the parameter theta(1) which is the intercept
+for j = 2 : length(theta)
+    J_tmp = J_tmp + (lambda/(2*m)) * (theta(j))^2;
+end
+
+% Create output cost function
+J = J_tmp;
 
 
+%% NS: Calculate gradient of J with Regularization
 
+% Calculate first elt separately
+grad_tmp = 0;
+for i = 1 : m
+    hyp = sigmoid(X(i,:)*theta);
+    grad_tmp = grad_tmp + (hyp - y(i))*X(i,1); 
+end
+grad(1) = (1/m) * grad_tmp;
 
+% Calculate other elts
+for j = 2 : size(theta)
+    grad_tmp = 0;
+    
+    for i = 1 : m
+        hyp = sigmoid(X(i,:)*theta);
+        grad_tmp = grad_tmp + (hyp - y(i))*X(i,j); 
+    end
+    
+    grad(j) = (1/m) * grad_tmp + (lambda/m)*theta(j);
+end
 
 % =============================================================
 
