@@ -30,11 +30,9 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
-
-
-
+% The function [M,I] = max(X) returns the max value of a matrix and gives
+%the index of this max value (I)
+[~,p] = max(X * all_theta' , [] , 2);
 
 % =========================================================================
 

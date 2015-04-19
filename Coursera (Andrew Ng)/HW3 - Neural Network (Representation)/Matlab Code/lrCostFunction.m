@@ -36,14 +36,14 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+hyp = sigmoid(X*theta);
 
+J = (-1/m) * ( ( y' * log(hyp) ) + ( ( ones(length(y),1)' - y' ) * log( ones(length(hyp),1) - hyp ) ) ) + ( (lambda/(2*m)) * (theta(2:end)' * theta(2:end)) );
 
-
-
-
-
-
-
+%% Compute Gradient
+% Note: Regularization only added for all theta except first one (intercept)
+grad = (1/m) .* ( X' * (hyp-y) );
+grad(2:end) = grad(2:end) + ( (lambda/m) .* theta(2:end) );
 
 % =============================================================
 
